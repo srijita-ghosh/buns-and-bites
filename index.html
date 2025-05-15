@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Dior Luxury Fashion</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --gold: #bfa14a;
+      --black: #111;
+      --white: #fff;
+      --serif: 'Playfair Display', serif;
+      --sans: 'Montserrat', Arial, sans-serif;
+    }
+    body {
+      margin: 0;
+      font-family: var(--sans);
+      background: var(--white);
+      color: var(--black);
+    }
+    /* Navigation Header */
+    .header {
+      position: sticky;
+      top: 0;
+      background: rgba(255,255,255,0.96);
+      backdrop-filter: blur(8px);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 5vw;
+      z-index: 100;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+    }
+    .logo {
+      font-family: var(--serif);
+      font-size: 2rem;
+      font-weight: bold;
+      letter-spacing: 0.1em;
+      color: var(--black);
+    }
+    .nav-icons {
+      display: flex;
+      gap: 2rem;
+      font-size: 1.4rem;
+    }
+    .nav-icons a {
+      color: var(--black);
+      text-decoration: none;
+      position: relative;
+      transition: color 0.2s;
+    }
+    .nav-icons a:hover {
+      color: var(--gold);
+      text-shadow: 0 0 6px #bfa14a44;
+    }
+    .nav-icons a::after {
+      content: "";
+      display: block;
+      width: 0;
+      height: 2px;
+      background: var(--gold);
+      transition: width 0.3s;
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+    }
+    .nav-icons a:hover::after {
+      width: 100%;
+    }
+    /* Hero Section */
+    .hero {
+      min-height: 90vh;
+      background: url('https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=facearea&w=1500&q=80') center/cover no-repeat;
+      /* For production, use Dior runway/editorial with dainty jewelry */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+    .hero-content {
+      background: rgba(255,255,255,0.78);
+      padding: 3rem 4rem;
+      border-radius: 1.5rem;
+      text-align: center;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+    }
+    .hero-title {
+      font-family: var(--serif);
+      font-size: 3rem;
+      margin-bottom: 1.5rem;
+      color: var(--black);
+      letter-spacing: 0.04em;
+    }
+    .cta-group {
+      display: flex;
+      gap: 2rem;
+      justify-content: center;
+    }
+    .cta-btn {
+      background: var(--black);
+      color: var(--white);
+      font-family: var(--sans);
+      font-weight: 600;
+      font-size: 1.2rem;
+      border: none;
+      border-radius: 2rem;
+      padding: 0.9rem 2.5rem;
+      margin-top: 1rem;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+    }
+    .cta-btn:hover {
+      background: var(--gold);
+      color: var(--black);
+    }
+    /* Categories Grid */
+    .categories {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 2.5rem;
+      padding: 4rem 6vw 2rem 6vw;
+      background: #faf9f6;
+    }
+    .cat-card {
+      position: relative;
+      overflow: hidden;
+      border-radius: 1.2rem;
+      cursor: pointer;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.04);
+      transition: transform 0.3s;
+    }
+    .cat-card:hover {
+      transform: scale(1.04);
+    }
+    .cat-card img {
+      width: 100%;
+      height: 320px;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.4s;
+    }
+    .cat-card:hover img {
+      transform: scale(1.08);
+      filter: brightness(0.9);
+    }
+    .cat-card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(120deg,rgba(191,161,74,0.10),rgba(0,0,0,0.06));
+      opacity: 0;
+      transition: opacity 0.3s;
+      pointer-events: none;
+    }
+    .cat-card:hover::after {
+      opacity: 1;
+    }
+    .cat-label {
+      position: absolute;
+      left: 1.2rem;
+      bottom: 1.2rem;
+      background: rgba(255,255,255,0.85);
+      padding: 0.5rem 1.2rem;
+      border-radius: 2rem;
+      font-family: var(--sans);
+      font-weight: 600;
+      font-size: 1.1rem;
+      color: var(--black);
+    }
+    /* Carousel */
+    .carousel-section {
+      padding: 2.5rem 0 4rem 0;
+      background: var(--white);
+    }
+    .carousel-title {
+      font-family: var(--serif);
+      font-size: 2rem;
+      margin-left: 6vw;
+      margin-bottom: 1.5rem;
+      color: var(--black);
+    }
+    .carousel {
+      display: flex;
+      overflow-x: auto;
+      gap: 2rem;
+      padding: 0 6vw;
+      scroll-snap-type: x mandatory;
+    }
+    .carousel::-webkit-scrollbar {
+      display: none;
+    }
+    .product-card {
+      min-width: 260px;
+      background: #faf9f6;
+      border-radius: 1rem;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+      padding: 1rem;
+      scroll-snap-align: start;
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+    .product-card:hover {
+      box-shadow: 0 8px 32px rgba(191,161,74,0.12);
+      transform: translateY(-6px) scale(1.03);
+    }
+    .product-card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 0.7rem;
+    }
+    .product-name {
+      font-weight: 600;
+      margin: 0.7rem 0 0.3rem 0;
+      color: var(--black);
+    }
+    .product-price {
+      font-family: var(--serif);
+      font-size: 1.1rem;
+      color: var(--gold);
+      font-weight: bold;
+    }
+    .quick-add {
+      margin-top: 0.7rem;
+      background: var(--gold);
+      color: var(--white);
+      border: none;
+      border-radius: 2rem;
+      padding: 0.5rem 1.3rem;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background 0.2s;
+    }
+    .quick-add:hover {
+      background: var(--black);
+      color: var(--gold);
+    }
+    /* Editorial Section */
+    .editorial-section {
+      background: url('https://wwd.com/wp-content/uploads/2023/10/DIOR-ICONS-ADVERTISING-CAMPAIGN-WITH-ROBERT-PATTINSON-BY-ALASDAIR-MCLELLAN-4.jpg') center/cover no-repeat;
+      min-height: 420px;
+      display: flex;
+      align-items: flex-end;
+      padding: 0 0 4rem 6vw;
+      position: relative;
+    }
+    .editorial-content {
+      background: rgba(255,255,255,0.85);
+      padding: 2rem 3rem;
+      border-radius: 1.5rem;
+      max-width: 400px;
+    }
+    .editorial-text {
+      font-family: var(--serif);
+      font-size: 1.5rem;
+      color: var(--black);
+      margin-bottom: 1.2rem;
+    }
+    .editorial-btn {
+      background: var(--black);
+      color: var(--white);
+      border: none;
+      border-radius: 2rem;
+      padding: 0.7rem 2rem;
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .editorial-btn:hover {
+      background: var(--gold);
+      color: var(--black);
+    }
+    /* Footer */
+    .footer {
+      background: var(--black);
+      color: var(--white);
+      padding: 3rem 6vw 1.5rem 6vw;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+    .footer-top {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 3rem;
+      justify-content: space-between;
+    }
+    .footer-col {
+      min-width: 180px;
+    }
+    .footer-title {
+      font-family: var(--serif);
+      font-size: 1.1rem;
+      margin-bottom: 1rem;
+      color: var(--gold);
+    }
+    .socials {
+      display: flex;
+      gap: 1.2rem;
+      font-size: 1.3rem;
+    }
+    .newsletter-form {
+      display: flex;
+      gap: 0.7rem;
+    }
+    .newsletter-form input {
+      padding: 0.6rem 1.2rem;
+      border-radius: 2rem;
+      border: none;
+      font-size: 1rem;
+      outline: none;
+    }
+    .newsletter-form button {
+      background: var(--gold);
+      color: var(--white);
+      border: none;
+      border-radius: 2rem;
+      padding: 0.6rem 1.4rem;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background 0.2s;
+    }
+    .newsletter-form button:hover {
+      background: var(--white);
+      color: var(--gold);
+    }
+    .footer-bottom {
+      font-size: 0.9rem;
+      color: #bbb;
+      border-top: 1px solid #444;
+      padding-top: 1.2rem;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+    @media (max-width: 800px) {
+      .hero-content { padding: 2rem 1rem; }
+      .categories { grid-template-columns: 1fr 1fr; }
+      .footer-top { flex-direction: column; gap: 2rem; }
+    }
+    @media (max-width: 600px) {
+      .categories { grid-template-columns: 1fr; }
+      .carousel { gap: 1rem; }
+      .footer { padding: 2rem 3vw 1rem 3vw; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <div class="header">
+    <div class="logo">DIOR</div>
+    <div class="nav-icons">
+      <a href="#" title="Home">🏠</a>
+      <a href="#" title="Search">🔍</a>
+      <a href="#" title="Cart">🛒</a>
+      <a href="#" title="Profile">👤</a>
+    </div>
+  </div>
+
+  <!-- Hero Section: Model in Dior attire with jewelry -->
+  <!-- HERO BANNER START -->
+<style>
+.hero-image {
+  height: 90vh;
+  background-image: linear-gradient(rgba(0,0,0,0.30), rgba(0,0,0,0.30)), url('https://images.prismic.io/lvmh-com/f0a4174e-c959-44b4-942a-95c2a0d7f27f_MD-BB_S123_Instit_1992x1296.jpg?auto=compress%2Cformat&fit=max&w=3840');
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.hero-text {
+  text-align: center;
+  color: #fff;
+  position: relative;
+  z-index: 2;
+}
+.hero-text h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 3rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  margin-bottom: 1.5rem;
+  text-shadow: 0 2px 20px rgba(0,0,0,0.18);
+}
+.cta-group {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+}
+.cta-btn {
+  background: #111;
+  color: #fff;
+  font-family: 'Montserrat', Arial, sans-serif;
+  font-weight: 600;
+  font-size: 1.2rem;
+  border: none;
+  border-radius: 2rem;
+  padding: 0.9rem 2.5rem;
+  margin-top: 1rem;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+.cta-btn:hover {
+  background: #bfa14a;
+  color: #111;
+}
+@media (max-width:600px) {
+  .hero-text h1 { font-size: 2rem; }
+  .cta-group { flex-direction: column; gap: 1rem; }
+}
+</style>
+
+<div class="hero-image">
+  <div class="hero-text">
+    <h1>Iconic in Dior</h1>
+    <div class="cta-group">
+      <button class="cta-btn">Shop Women</button>
+      <button class="cta-btn">Shop Men</button>
+    </div>
+  </div>
+</div>
+<!-- HERO BANNER END -->
+
+
+  <!-- Main Categories (Luxury Images) -->
+  <section class="categories">
+    <div class="cat-card">
+      <img src="https://image.goxip.com/qA4JzAAMTJcWUT-8MiwF_ohLCQ0=/fit-in/500x500/filters:format(jpg):quality(80):fill(white)/https:%2F%2Fimages.stockx.com%2Fimages%2FDior-Lady-Dior-Bag-Cannage-Lambskin-Medium-Black.jpg" alt="Dior Handbag">
+      <span class="cat-label">Bags</span>
+    </div>
+    <div class="cat-card">
+      <img src="https://www.dior.com/dw/image/v2/BGXS_PRD/on/demandware.static/-/Sites-master_dior/default/dw736f2323/Y0996347/Y0996347_C099600764_E02_GHC.jpg?sw=800" alt="J'adore Perfume">
+      <span class="cat-label">Perfume</span>
+    </div>
+    <div class="cat-card">
+      <img src="https://madilane.com/wp-content/uploads/2021/10/DIOR-ML22034-FULL-LENGTH-CHIFFON-ALINE-GOWN-WITH-RUCHING-AND-OFF-SHOULDER-STRAPS-ZIPPER-CLOSURE-WEDDING-DRESS-MADI-LANE-BRIDAL-7.jpg">
+      <span class="cat-label">Clothing</span>
+    </div>
+    <div class="cat-card">
+      <img src="https://di2ponv0v5otw.cloudfront.net/posts/2023/06/23/6495b50732c1dc95014d3cee/m_6495b604ffb5d0f1f01e2aef.jpg">
+      <span class="cat-label">Shoes</span>
+    </div>
+    <div class="cat-card">
+      <img src="https://i.pinimg.com/474x/99/66/13/9966132f63a611c676614692ccbf758a.jpg">
+      <span class="cat-label">Accessories</span>
+    </div>
+  </section>
+
+  <!-- New Arrivals Carousel -->
+  <section class="carousel-section">
+    <div class="carousel-title">New Arrivals</div>
+    <div class="carousel">
+      <div class="product-card">
+        <img src="https://i.pinimg.com/736x/b2/4c/26/b24c26697861b2eaa2a8a2868fad14e5.jpg" alt="Lady Dior Bag">
+        <div class="product-name">Lady Dior Bag</div>
+        <div class="product-price">$4,800</div>
+        <button class="quick-add">Quick Add</button>
+      </div>
+      <div class="product-card">
+        <img src="https://wwd.com/wp-content/uploads/2022/10/DIOR-MENS-SPRING-2023-ADVERTISING-CAMPAIGN-BY-RAFAEL-PAVAROTTI-18.jpg" alt="Dior Men icons">
+        <div class="product-name">Dior men icons</div>
+        <div class="product-price">$7800</div>
+        <button class="quick-add">Quick Add</button>
+      </div>
+      <div class="product-card">
+        <img src="https://i.pinimg.com/736x/bf/d7/94/bfd7944fd4f80cf66ba5cc717887339e.jpg" alt="Haute Couture Dress">
+        <div class="product-name">Haute Couture Dress</div>
+        <div class="product-price">$8,900</div>
+        <button class="quick-add">Quick Add</button>
+      </div>
+      <div class="product-card">
+        <img src="https://www.levelshoes.com/media/catalog/product/p/l/pl233425_1.jpg" alt="Dior Heels">
+        <div class="product-name">Dior Heels</div>
+        <div class="product-price">$1,200</div>
+        <button class="quick-add">Quick Add</button>
+      </div>
+      <div class="product-card">
+        <img src="https://i.etsystatic.com/15749886/r/il/84be19/6282286970/il_1080xN.6282286970_fpv0.jpg" alt="Dior Gold octagon men's Watch">
+        <div class="product-name">Dior Gold octagon men's watch</div>
+        <div class="product-price">$2,500</div>
+        <button class="quick-add">Quick Add</button>
+      </div>
+    </div>
+  </section>
+
+<!-- ======= Behind-the-Scenes / Brand Story Section ======= -->
+<style>
+.brand-story-section {
+  display: flex;
+  gap: 2.5rem;
+  align-items: center;
+  padding: 4rem 6vw;
+  background: #f7f6f3;
+  flex-wrap: wrap;
+}
+.brand-story-img {
+  flex: 1 1 340px;
+  min-width: 260px;
+  max-width: 400px;
+  border-radius: 1.2rem;
+  overflow: hidden;
+  box-shadow: 0 4px 32px rgba(191,161,74,0.10);
+}
+.brand-story-img img {
+  width: 100%;
+  display: block;
+  object-fit: cover;
+  height: 320px;
+}
+.brand-story-content {
+  flex: 2 1 400px;
+  min-width: 260px;
+}
+.brand-story-content h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.7rem;
+  margin-bottom: 1rem;
+  color: #111;
+}
+.brand-story-content p {
+  font-family: 'Montserrat', Arial, sans-serif;
+  font-size: 1.1rem;
+  color: #333;
+  margin-bottom: 1.2rem;
+}
+.brand-story-content a {
+  color: #bfa14a;
+  text-decoration: underline;
+  font-weight: 600;
+  transition: color 0.2s;
+}
+.brand-story-content a:hover {
+  color: #111;
+}
+@media (max-width: 900px) {
+  .brand-story-section { flex-direction: column; gap: 1.5rem; }
+  .brand-story-img, .brand-story-content { max-width: 100%; }
+}
+</style>
+<section class="brand-story-section">
+  <div class="brand-story-img">
+    <img src="https://thumbs.dreamstime.com/b/image-depicts-shop-window-decoration-christian-dior-boutique-window-decoration-christian-dior-262736247.jpg" alt="Dior Atelier">
+  </div>
+  <div class="brand-story-content">
+    <h3>Inside the Dior Atelier</h3>
+    <p>Discover the heritage and craftsmanship behind every Dior creation. Step inside our Paris atelier and witness the artistry, passion, and legacy that define the House of Dior.</p>
+    <a href="#">Watch the Story &rarr;</a>
+  </div>
+</section>
+<!-- ======= Personalized Recommendations Carousel ======= -->
+<style>
+.recommend-section {
+  padding: 3rem 0 3rem 0;
+  background: #fff;
+}
+.recommend-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  margin-left: 6vw;
+  margin-bottom: 1.5rem;
+  color: #111;
+}
+.recommend-carousel {
+  display: flex;
+  overflow-x: auto;
+  gap: 2rem;
+  padding: 0 6vw;
+  scroll-snap-type: x mandatory;
+}
+.recommend-carousel::-webkit-scrollbar { display: none; }
+.recommend-card {
+  min-width: 240px;
+  background: #faf9f6;
+  border-radius: 1rem;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  padding: 1rem;
+  scroll-snap-align: start;
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+.recommend-card:hover {
+  box-shadow: 0 8px 32px rgba(191,161,74,0.12);
+  transform: translateY(-6px) scale(1.03);
+}
+.recommend-card img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 0.7rem;
+}
+.recommend-name {
+  font-weight: 600;
+  margin: 0.7rem 0 0.3rem 0;
+  color: #222;
+}
+.recommend-price {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.1rem;
+  color: #bfa14a;
+  font-weight: bold;
+}
+@media (max-width: 600px) {
+  .recommend-carousel { gap: 1rem; }
+}
+</style>
+<section class="recommend-section">
+  <div class="recommend-title">Recommended for You</div>
+  <div class="recommend-carousel">
+    <div class="recommend-card">
+      <img src="https://prod-images.fashionphile.com/main/ac95c503fe5ead303734bf7fb4dadb07/fb95d5be18ac063c1e262ab9ea298489.jpg" alt="Recommended Product 1">
+      <div class="recommend-name">Oblique Silk Scarf</div>
+      <div class="recommend-price">$350</div>
+    </div>
+    <div class="recommend-card">
+      <img src="https://www.purseblog.com/images/2022/07/Dior-Book-Tote-Medium.jpg" alt="Recommended Product 2">
+      <div class="recommend-name">Dior Book Tote</div>
+      <div class="recommend-price">$3,200</div>
+    </div>
+    <div class="recommend-card">
+      <img src="https://images-cdn.ubuy.co.in/67c2a4ed50df9c58a7437d15-miss-dior-by-christian-dior-for-women.jpg" alt="Recommended Product 3">
+      <div class="recommend-name">Miss Dior Eau de Parfum</div>
+      <div class="recommend-price">$145</div>
+    </div>
+    <div class="recommend-card">
+      <img src="https://i.pinimg.com/736x/1e/2a/1b/1e2a1b8a7712d2c5070a93a2a3070050.jpg" alt="Recommended Product 3">
+      <div class="recommend-name">Miss Dior Sunglasses</div>
+      <div class="recommend-price">$178</div>
+    </div>
+    <!-- Add more cards as needed -->
+  </div>
+</section>
+<!-- ======= Sustainability & Ethics Highlight ======= -->
+<style>
+.sustain-section {
+  background: #f7f6f3;
+  padding: 3rem 6vw;
+  display: flex;
+  align-items: center;
+  gap: 2.5rem;
+  flex-wrap: wrap;
+  margin-top: 40px;
+}
+.sustain-icon {
+  font-size: 3rem;
+  color: #bfa14a;
+  margin-right: 1.5rem;
+}
+.sustain-content {
+  flex: 1 1 350px;
+}
+.sustain-content h4 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.4rem;
+  margin-bottom: 0.7rem;
+  color: #111;
+}
+.sustain-content p {
+  font-family: 'Montserrat', Arial, sans-serif;
+  font-size: 1.08rem;
+  color: #333;
+  margin: 0;
+}
+@media (max-width: 800px) {
+  .sustain-section { flex-direction: column; gap: 1.5rem; }
+}
+</style>
+<section class="sustain-section">
+  <div class="sustain-icon">🌱</div>
+  <div class="sustain-content">
+    <h4>Committed to Sustainability</h4>
+    <p>At Dior, we are dedicated to ethical sourcing, eco-friendly materials, and responsible luxury. Explore our journey towards a more sustainable future.</p>
+  </div>
+</section>
+<!-- ======= Celebrity & Influencer Features ======= -->
+<style>
+.celebrity-section {
+  padding: 3rem 6vw;
+  background: #fff;
+}
+.celebrity-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  color: #111;
+}
+.celebrity-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 2rem;
+}
+.celebrity-card {
+  border-radius: 1.2rem;
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 2px 16px rgba(191,161,74,0.08);
+  transition: transform 0.3s;
+  cursor: pointer;
+}
+.celebrity-card:hover {
+  transform: scale(1.04);
+  box-shadow: 0 8px 32px rgba(191,161,74,0.16);
+}
+.celebrity-card img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  display: block;
+  transition: filter 0.3s;
+}
+.celebrity-card:hover img {
+  filter: brightness(0.85);
+}
+.celebrity-label {
+  position: absolute;
+  left: 1rem;
+  bottom: 1rem;
+  background: rgba(255,255,255,0.85);
+  padding: 0.4rem 1rem;
+  border-radius: 2rem;
+  font-family: 'Montserrat', Arial, sans-serif;
+  font-weight: 600;
+  font-size: 1rem;
+  color: #111;
+}
+</style>
+<section class="celebrity-section">
+  <div class="celebrity-title">Dior on the Red Carpet</div>
+  <div class="celebrity-grid">
+    <div class="celebrity-card">
+      <img src="https://wwd.com/wp-content/uploads/2024/10/DIOR-ICONS-ADVERTISING-CAMPAIGN-WITH-ROBERT-PATTINSON-BY-ALASDAIR-MCLELLAN-4.jpg?crop=118px%2C122px%2C2358px%2C1322px&resize=1000%2C563" alt="Celebrity 1">
+      <span class="celebrity-label">Robert Pattinson</span>
+    </div>
+    <div class="celebrity-card">
+      <img src="https://i.pinimg.com/1200x/0a/54/36/0a543650f408193432a2435ee0a54cff.jpg" alt="lady DIOR Jisoo">
+      <span class="celebrity-label">Jisoo</span>
+    </div>
+        <div class="celebrity-card">
+      <img src="https://rare-gallery.com/uploads/posts/1249130-jennifer-lawrence-dior-addict-2016.jpg" alt="Jennifer Lawrence">
+      <span class="celebrity-label">Jennifer lawrence</span>
+    </div>
+    <div class="celebrity-card">
+      <img src="https://i.ytimg.com/vi/5JEIGChkHzs/maxresdefault.jpg" alt="Jimin">
+      <span class="celebrity-label">Park Jimin</span>
+    </div>
+    <!-- Add more as needed -->
+  </div>
+</section>
+<!-- ======= Virtual Try-On / Interactive Experience ======= -->
+<style>
+.tryon-section {
+  background: #f7f6f3;
+  padding: 3rem 6vw;
+  text-align: center;
+  margin-top: 40px;
+}
+.tryon-section h4 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
+  color: #111;
+}
+.tryon-section p {
+  font-family: 'Montserrat', Arial, sans-serif;
+  font-size: 1.08rem;
+  color: #333;
+  margin-bottom: 1.5rem;
+}
+.tryon-btn {
+  background: #bfa14a;
+  color: #fff;
+  border: none;
+  border-radius: 2rem;
+  padding: 0.8rem 2.2rem;
+  font-weight: 600;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+  font-family: 'Montserrat', Arial, sans-serif;
+}
+.tryon-btn:hover {
+  background: #111;
+  color: #bfa14a;
+}
+</style>
+<section class="tryon-section">
+  <h4>Try Dior Accessories Virtually</h4>
+  <p>Experience the future of luxury. Virtually try on our latest sunglasses, jewelry, or makeup with a single click.</p>
+  <button class="tryon-btn">Launch Virtual Try-On</button>
+</section>
+<!-- ======= Exclusive Member/Insider Access ======= -->
+<style>
+.insider-section {
+  background: linear-gradient(120deg, #f7f6f3 70%, #fff 100%);
+  padding: 3rem 6vw;
+  display: flex;
+  align-items: center;
+  gap: 2.5rem;
+  flex-wrap: wrap;
+  margin-top: 40px;
+  border-radius: 1.5rem;
+}
+.insider-content {
+  flex: 2 1 350px;
+}
+.insider-content h4 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.4rem;
+  margin-bottom: 0.7rem;
+  color: #111;
+}
+.insider-content p {
+  font-family: 'Montserrat', Arial, sans-serif;
+  font-size: 1.08rem;
+  color: #333;
+  margin-bottom: 1rem;
+}
+.insider-form {
+  display: flex;
+  gap: 0.7rem;
+  margin-top: 1rem;
+}
+.insider-form input {
+  padding: 0.6rem 1.2rem;
+  border-radius: 2rem;
+  border: none;
+  font-size: 1rem;
+  outline: none;
+}
+.insider-form button {
+  background: #bfa14a;
+  color: #fff;
+  border: none;
+  border-radius: 2rem;
+  padding: 0.6rem 1.4rem;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background 0.2s;
+}
+.insider-form button:hover {
+  background: #111;
+  color: #bfa14a;
+}
+@media (max-width: 800px) {
+  .insider-section { flex-direction: column; gap: 1.5rem; }
+}
+</style>
+<section class="insider-section">
+  <div class="insider-content">
+    <h4>Become a Dior Insider</h4>
+    <p>Join now for early access, private sales, and exclusive events. Experience Dior like never before.</p>
+    <form class="insider-form">
+      <input type="email" placeholder="Your email">
+      <button type="submit">Join Now</button>
+    </form>
+  </div>
+</section>
+
+
+  <!-- Editorial Campaign / Lookbook -->
+  <section class="editorial-section">
+    <div class="editorial-content">
+      <div class="editorial-text">Discover the Spring/Summer 2025 Campaign</div>
+      <button class="editorial-btn">Explore the Collection</button>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-top">
+      <div class="footer-col">
+        <div class="footer-title">Our Story</div>
+        <div>Founded in 1946, Dior redefines luxury with timeless elegance and innovation.</div>
+      </div>
+      <div class="footer-col">
+        <div class="footer-title">Follow Us</div>
+        <div class="socials">
+          <a href="#">Instagram</a>
+          <a href="#">Facebook</a>
+          <a href="#">YouTube</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <div class="footer-title">Newsletter</div>
+        <form class="newsletter-form">
+          <input type="email" placeholder="Your email">
+          <button type="submit">Sign Up</button>
+        </form>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>
+        <span>🌐 English (US)</span> | <span>🇺🇸 United States</span>
+      </div>
+      <div>
+        &copy; 2025 Dior. All rights reserved. | Legal | Privacy Policy
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
